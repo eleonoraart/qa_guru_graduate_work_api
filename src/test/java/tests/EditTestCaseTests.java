@@ -37,15 +37,16 @@ public class EditTestCaseTests extends TestBase{
             assertThat(testCaseResponse.getName()).isEqualTo(TestData.testCaseName);
         });
 
-        step("Изменение имени тест-кейса", () -> {
+        step("Добавиляем описание", () -> {
             openBaseUrl();
-            $(new ByText(TestData.testCaseName)).hover();
-            $(".Button.Button_size_tiny.Button_style_row-control.Button_shape_rectangular").click();
-            $("").setValue(" edit").pressEnter();
+            $(new ByText(TestData.testCaseName)).click();
+            $("section[data-testid='section__description'] button[type='button']").click();
+            $("").setValue("Some description");
+            $("button[name='submit']").click();
         });
 
-        step("Проверка нового имени тест-кейса", () -> {
-            $("a[class='LoadableTreeNodeView LoadableTreeNodeView_active'] div[class='TreeNodeName']").shouldHave(text(TestData.testCaseName + " edit"));
+        step("Проверка отредактированного кейса", () -> {
+            $("section[data-testid='section__description']").shouldHave(text("Some description"));
         });
 
 
