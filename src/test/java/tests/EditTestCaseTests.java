@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static configs.AuthConfig.projectId;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
@@ -36,6 +37,7 @@ public class EditTestCaseTests extends TestBase{
         });
 
         step("Изменение имени тест-кейса", () -> {
+            open("/project/2246/test-cases");
             $(new ByText(TestData.testCaseName)).hover();
             $(".Button.Button_size_tiny.Button_style_row-control.Button_shape_rectangular").click();
             $("").setValue(" edit").pressEnter();
