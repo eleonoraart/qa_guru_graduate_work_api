@@ -17,8 +17,6 @@ import static specs.TestOpsSpec.responseSpec;
 
 public class EditTestCaseTests extends TestBase{
 
-    TestCaseBody testCaseBody = new TestCaseBody();
-
     @Test
     @DisplayName("Редактирование тест-кейса")
     void editTestCaseTest(){

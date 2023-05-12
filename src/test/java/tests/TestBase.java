@@ -7,6 +7,7 @@ import configs.ReaderConfig;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import models.TestCaseBody;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ public class TestBase {
     public static String allureTestOpsSession;
     static AuthConfig authConfig = new AuthConfig();
     public static String testCaseID;
+    static TestCaseBody testCaseBody = new TestCaseBody();
     @BeforeAll
 
     static void authToAllureTestOps() throws IOException {
@@ -45,8 +47,10 @@ public class TestBase {
                     .statusCode(200)
                     .extract().response()
                     .getCookie("ALLURE_TESTOPS_SESSION");
-        }
 
+        testCaseBody.setName(TestData.testCaseName);
+
+    }
 
     @BeforeEach
     void addListener () {
