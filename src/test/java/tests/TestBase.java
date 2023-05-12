@@ -7,6 +7,7 @@ import configs.ReaderConfig;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import models.CreateTestCaseResponse;
 import models.TestCaseBody;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.IOException;
 
 import static configs.AuthConfig.*;
+import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static specs.TestOpsSpec.requestSpec;
+import static specs.TestOpsSpec.responseSpec;
 
 public class TestBase {
 
@@ -55,6 +60,20 @@ public class TestBase {
     @BeforeEach
     void addListener () {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+
+        CreateTestCaseResponse testCaseResponse = step("Cоздание тест-кейса", () ->
+                given(requestSpec)
+                        .body(testCaseBody)
+                        .queryParam("projectId", projectId)
+                        .when()
+                        .post("/testcasetree/leaf")
+                        .then()
+                        .spec(responseSpec)
+                        .statusCode(200).extract().as(CreateTestCaseResponse.class));
+
+        step("Проверка создания тест-кейса", () -> {
+            assertThat(testCaseResponse.getName()).isEqualTo(TestData.testCaseName);
+        });
     }
 
     @AfterEach
