@@ -39,12 +39,12 @@ public class EditTestCaseTests extends TestBase{
         step("Добавиляем шаг к тест-кейсу", () -> {
             testCasesPage.clickToTestCaseName()
                     .clickEditStepButton()
-                    .addStep("Some step")
+                    .addStep(TestData.nameStepTestCase)
                     .clickSubmitButton();
         });
 
         step("Проверка добавленного шага", () -> {
-            testCasesPage.checkStepName("Some step");
+            testCasesPage.checkStepName(TestData.nameStepTestCase);
         });
 
     }
@@ -58,7 +58,7 @@ public class EditTestCaseTests extends TestBase{
         step("Добавиляем шаг к тест-кейсу", () -> {
             testCasesPage.clickToTestCaseName()
                     .clickEditStepButton()
-                    .addStep("Some step")
+                    .addStep(TestData.nameStepTestCase)
                     .clickSubmitButton();
         });
 
@@ -70,7 +70,7 @@ public class EditTestCaseTests extends TestBase{
         });
 
         step("Проверка отредактированного шага", () -> {
-            testCasesPage.checkStepName("Some step _ edit");
+            testCasesPage.checkStepName(TestData.nameStepTestCase + " _ edit");
         });
 
     }

@@ -9,6 +9,6 @@ public class TestData {
     public final static String
 
             testCaseName = faker.chuckNorris().fact(),
-            nameStepTestCaseOne = faker.gameOfThrones().dragon();
+            nameStepTestCase = faker.gameOfThrones().dragon();
 
 }
