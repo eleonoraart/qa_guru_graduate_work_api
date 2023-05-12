@@ -41,7 +41,7 @@ public class EditTestCaseTests extends TestBase{
             openBaseUrl();
             $(new ByText(TestData.testCaseName)).click();
             $("section[data-testid='section__description'] button[type='button']").click();
-            $("").setValue("Some description");
+            $("textarea[placeholder='Type a description']").setValue("Some description");
             $("button[name='submit']").click();
         });
 
