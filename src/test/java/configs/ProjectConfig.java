@@ -11,7 +11,7 @@ import static configs.AuthConfig.projectId;
 
 public class ProjectConfig extends TestBase {
 
-    public static void openBaseUrlBrowser() {
+    public static void openBaseUrl() {
         open("/favicon.ico");
         Cookie authorizationCookie = new Cookie("ALLURE_TESTOPS_SESSION", allureTestOpsSession);
         getWebDriver().manage().addCookie(authorizationCookie);
