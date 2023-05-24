@@ -10,9 +10,9 @@ import static com.codeborne.selenide.Selenide.$;
 public class TestCasesPage {
 
     @Step("Нажать на тест-кейс")
-    public TestCasesPage clickToTestCaseName(){
+    public TestCasesPage clickToTestCaseName(String testCaseName){
 
-        $(new ByText(TestData.testCaseName)).click();
+        $(new ByText(testCaseName)).click();
 
         return this;
     }

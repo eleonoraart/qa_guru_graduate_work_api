@@ -1,13 +1,13 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import configs.AuthConfig;
 import configs.ReaderConfig;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
-import models.CreateTestCaseResponse;
 import models.TestCaseBody;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,21 +16,18 @@ import org.junit.jupiter.api.BeforeEach;
 import java.io.IOException;
 
 import static configs.AuthConfig.*;
-import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static specs.TestOpsSpec.requestSpec;
-import static specs.TestOpsSpec.responseSpec;
 
 public class TestBase {
 
     public static String allureTestOpsSession;
-    static AuthConfig authConfig = new AuthConfig();
+    AuthConfig authConfig = new AuthConfig();
     public static String testCaseID;
-    static TestCaseBody testCaseBody = new TestCaseBody();
-    @BeforeAll
+    TestCaseBody testCaseBody = new TestCaseBody();
 
-    static void authToAllureTestOps() throws IOException {
+
+    @BeforeAll
+    void authToAllureTestOps() throws IOException {
 
         authConfig.getAuthConfig();
 
@@ -61,19 +58,6 @@ public class TestBase {
     void addListener () {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
-        CreateTestCaseResponse testCaseResponse = step("Cоздание тест-кейса", () ->
-                given(requestSpec)
-                        .body(testCaseBody)
-                        .queryParam("projectId", projectId)
-                        .when()
-                        .post("/testcasetree/leaf")
-                        .then()
-                        .spec(responseSpec)
-                        .statusCode(200).extract().as(CreateTestCaseResponse.class));
-
-        step("Проверка создания тест-кейса", () -> {
-            assertThat(testCaseResponse.getName()).isEqualTo(TestData.testCaseName);
-        });
     }
 
     @AfterEach
@@ -82,5 +66,6 @@ public class TestBase {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
+        Selenide.closeWebDriver();
     }
 }
