@@ -104,7 +104,7 @@ public class EditTestCaseTests extends TestBase{
     void createTestCaseStepTest(){
         StepsResponse caseStepResponse = step("Cоздание шага тест-кейса", () ->
                 given(requestStepSpec)
-                        .body(testCaseBody)
+                        .body(testCaseStepBody)
                         .queryParam("projectId", projectId)
                         .queryParam("caseId", caseId)
                         .when()

@@ -8,7 +8,9 @@ import configs.ReaderConfig;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
+import models.Steps;
 import models.TestCaseBody;
+import models.TestCaseStepBody;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,9 @@ public class TestBase {
     static AuthConfig authConfig = new AuthConfig();
     public static String testCaseID;
     static TestCaseBody testCaseBody = new TestCaseBody();
+
+    static Steps testCaseStepBody = new Steps();
+
 
     @BeforeAll
 
@@ -51,6 +56,9 @@ public class TestBase {
                     .getCookie("ALLURE_TESTOPS_SESSION");
 
         testCaseBody.setName(TestData.testCaseName);
+
+        testCaseStepBody.setName(TestData.nameStepTestCase);
+        testCaseStepBody.setSpacing("0");
 
     }
 
