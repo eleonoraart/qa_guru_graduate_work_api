@@ -21,13 +21,13 @@ import static io.restassured.RestAssured.given;
 public class TestBase {
 
     public static String allureTestOpsSession;
-    AuthConfig authConfig = new AuthConfig();
+    static AuthConfig authConfig = new AuthConfig();
     public static String testCaseID;
-    TestCaseBody testCaseBody = new TestCaseBody();
-
+    static TestCaseBody testCaseBody = new TestCaseBody();
 
     @BeforeAll
-    void authToAllureTestOps() throws IOException {
+
+    static void authToAllureTestOps() throws IOException {
 
         authConfig.getAuthConfig();
 

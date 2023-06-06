@@ -1,16 +1,21 @@
 package tests;
 
 import models.CreateTestCaseResponse;
+import models.CreateTestCaseStepResponse;
+import models.StepsResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.TestCasesPage;
 
+import static configs.AuthConfig.caseId;
 import static configs.AuthConfig.projectId;
 import static configs.ProjectConfig.openBaseUrl;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static specs.TestCaseSpec.requestStepSpec;
+import static specs.TestCaseSpec.responseStepSpec;
 import static specs.TestOpsSpec.requestSpec;
 import static specs.TestOpsSpec.responseSpec;
 
@@ -93,6 +98,26 @@ public class EditTestCaseTests extends TestBase{
             testCasesPage.checkStepName(TestData.nameStepTestCase + " _ edit");
         });
 
+    }
+
+    @Test
+    void createTestCaseStepTest(){
+        StepsResponse caseStepResponse = step("Cоздание шага тест-кейса", () ->
+                given(requestStepSpec)
+                        .body(testCaseBody)
+                        .queryParam("projectId", projectId)
+                        .queryParam("caseId", caseId)
+                        .when()
+                        .post("/testcase/scenario/")
+                        .then()
+                        .spec(responseStepSpec)
+                        .statusCode(200).extract().as(StepsResponse.class));
+
+        step("Проверка создания тест-кейса", () -> {
+            assertThat(caseStepResponse.getName()).isEqualTo(TestData.nameStepTestCase);
+        });
+
+        openBaseUrl();
     }
 }
 

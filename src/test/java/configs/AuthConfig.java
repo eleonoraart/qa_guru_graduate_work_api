@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class AuthConfig {
 
-    public static String username, password, token, xsrfToken, projectId;
+    public static String username, password, token, xsrfToken, projectId, caseId;
 
     public void getAuthConfig() throws IOException {
 
@@ -15,6 +15,7 @@ public class AuthConfig {
         token = System.getProperty("token");
         xsrfToken = System.getProperty("xsrfToken");
         projectId = System.getProperty("projectId");
+        caseId = System.getProperty("caseId");
 
     }
 }
