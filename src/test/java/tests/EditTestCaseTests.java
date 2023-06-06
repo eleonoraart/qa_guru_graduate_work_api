@@ -26,6 +26,7 @@ public class EditTestCaseTests extends TestBase{
 
     @BeforeEach
     void createTestCase(){
+        openBaseUrl();
         CreateTestCaseResponse testCaseResponse = step("Cоздание тест-кейса", () ->
                 given(requestSpec)
                         .body(testCaseBody)
